@@ -1,0 +1,5 @@
+﻿  My_List.cpp
+  Source.cpp
+D:\учеба\ЯМП\laba2\laba2\Source.cpp(26,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  Создание кода...
+  laba2.vcxproj -> D:\учеба\ЯМП\laba2\x64\Debug\laba2.exe
