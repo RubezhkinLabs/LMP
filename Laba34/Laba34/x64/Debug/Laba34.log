@@ -1,0 +1,3 @@
+﻿  Source.cpp
+D:\учеба\ЯМП\Laba34\Laba34\Source.cpp(285,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  Laba34.vcxproj -> D:\учеба\ЯМП\Laba34\x64\Debug\Laba34.exe
