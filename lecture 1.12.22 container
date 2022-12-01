@@ -1,0 +1,68 @@
+#include <iostream>
+#include <vector>
+#include <list>
+#include <functional>
+#include <algorithm>
+
+struct ELEM
+{
+	int x;
+	char ch;
+	ELEM() {}
+	ELEM(int x, char ch) : x(x), ch(ch) {}
+	void print()
+	{
+		std::cout << x << " (" << ch << ")\n";
+	}
+	void operator()(ELEM& elem) const
+	{
+		std::cout << x << " (" << ch << ")\n";
+	}
+};
+
+//int f(int, char, double);
+//auto fref = std::bind(f, _3, _2, _1);
+//fref(double, char, int);
+
+using Vector = std::vector<ELEM>;
+using Iterator = Vector::iterator;
+
+void printF(ELEM& elem)
+{
+	elem.print();
+}
+
+int main()
+{
+	Vector vect = { {1,'a'},{2,'b'},{3,'c'},{4,'d'},{5,'e'} };
+	// через цикл (перебор элементов коллекции)
+	for (ELEM& elem : vect)
+		elem.print();
+	std::cout << "--------------------\n";
+	// классический цикл for для итераторов
+	for (Iterator iterator = vect.begin(); iterator != vect.end(); ++iterator)
+		(*iterator).print();
+	std::cout << "--------------------\n";
+	// foreach
+	//std::for_each(vect.begin(), vect.end(), &ELEM::print);  низя
+	std::for_each(vect.begin(), vect.end(), std::mem_fn(&ELEM::print)); //mem_fn - обертка
+	std::cout << "--------------------\n";
+	std::for_each(vect.begin(), vect.end(), std::bind(&ELEM::print));
+	std::cout << "--------------------\n";
+
+	auto prn = std::bind(&ELEM::print, std::placeholders::_1);
+	std::cout << "--------------------\n";
+	//std::for_each(vect.begin(), vect.end(), printF();
+	std::cout << "--------------------\n";
+	// внешняя фун-я, функтор, внешний функтор особо не написал, пж не бейте меня
+	// лямбда
+	using ptrVector = std::vector<ELEM*>;
+	ptrVector pvect = { new ELEM(4,'d'),new ELEM(5,'e') };
+	pvect.push_back(new ELEM(6, 'g'));
+
+	auto comparel = [](const ELEM& a, const ELEM& b)
+	{
+		return a.ch > b.ch;
+	};
+
+}
