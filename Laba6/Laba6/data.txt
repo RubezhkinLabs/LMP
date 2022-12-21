@@ -1,0 +1,7 @@
+P wolksvagen a543ht65 Petr Sidorov passat sedan blue
+T GAZ k676ax165 Andrey Sidotov tanker 10
+T Man t643ea643 Alexey Terentev van 5
+P Lada v004ko126 Dmitriy Prigozhin kalina sedan white
+P Porsche e254an Stas Ivanov 911 coupe black
+T Mersedes t673ok777 Vladimir Medvedev van 15
+T KAMAZ a643kv36 Evgeniy Romanov flatbed 10
