@@ -3,7 +3,7 @@
 #include "Park.h"
 #include "PassengerCar.h"
 #include "Truck.h"
-
+// Спасибо Тиграну Мовсисяну и Полине Пахомовой
 void init(Park& park, std::ifstream& file)
 {
 	char t;
