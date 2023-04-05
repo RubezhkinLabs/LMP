@@ -1,0 +1,7 @@
+﻿  HashTable.cpp
+D:\учеба\ЯМП\Laba7\Laba7\HashTable.cpp(29,41): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\учеба\ЯМП\Laba7\Laba7\HashTable.cpp(79,35): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Source.cpp
+D:\учеба\ЯМП\Laba7\Laba7\Source.cpp(6,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  Создание кода...
+  Laba7.vcxproj -> D:\учеба\ЯМП\Laba7\x64\Debug\Laba7.exe
