@@ -1,4 +1,4 @@
-//54
+//54 условие в image.png
 #include <iostream>
 
 const int n = 3;
