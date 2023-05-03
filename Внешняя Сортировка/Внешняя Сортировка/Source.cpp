@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 
+const int N = 9;
 
 struct Elem
 {
@@ -24,35 +25,33 @@ struct Sequence
 	void CopyRun(Sequence& x);
 };
 
-//естественное, многопутевое, несбалансированное, однофазное равномерное
-
-void In(std::string filename, Sequence f[5])
+void In(std::string filename, Sequence f[N])
 {
 	Sequence f0;
+	std::string name;
 	f0.StartRead(filename);
-	f[0].StartWrite("f0.txt");
-	f[1].StartWrite("f1.txt");
+	for (int i = 0; i < N / 2; i++)
+	{
+		name = "f" + std::to_string(i) + ".txt";
+		f[i].StartWrite(name);
+	}
 	bool flag;
+	int i = 0;
 	while (!f0.eof)
 	{
 		do
 		{
-			flag = f[0].elem.num < f0.elem.num && ('a' <= f[0].elem.ch && f[0].elem.ch <= 'z');
-			f[0].CopyRun(f0);
+			flag = f[i].elem.num < f0.elem.num && ('a' <= f[i].elem.ch && f[i].elem.ch <= 'z');
+			f[i].CopyRun(f0);
 		} while (flag);
-		if (!f0.eof)
-			do
-			{
-				flag = f[1].elem.num < f0.elem.num && ('a' <= f[1].elem.ch && f[1].elem.ch <= 'z');;
-				f[1].CopyRun(f0);
-			} while (flag);
+		i = (i + 1) % (N / 2);
 	}
 	f0.Close();
-	f[0].Close();
-	f[1].Close();
+	for (int i = 0; i < N / 2; i++)
+		f[i].Close();
 }
 
-void Out(std::string filename, Sequence f[5], int in)
+void Out(std::string filename, Sequence f[N], int in)
 {
 	Sequence f0;
 	std::string str = "f" + std::to_string(in) + ".txt";
@@ -88,7 +87,7 @@ void print(std::string str)
 
 void printall()
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < N; i++)
 	{
 		Sequence file;
 		std::string name = "f" + std::to_string(i) + ".txt";
@@ -100,129 +99,125 @@ void printall()
 
 void Sorting(std::string filename)
 {
-	Sequence f[5];
+	Sequence f[N];
 	In(filename, f);
 	int count(0);
-	bool cnt = 0;
-	bool cnt1 = 0;
+	bool step = 0;
+	int cnt = N / 2;
+	int cnt1;
 	bool cont;
 	int Min;
+	int minIn;
 	std::string name;
 	int ord;
 	int lcf;
 	std::map <int, int> Q;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < N; i++)
 		Q[i] = i;
 	do
 	{
 		count = 0;
 
-		for (int i = 2 + cnt; i < 5; i++)
+		for (int i = cnt; i < N; i++)
 		{
 			name = "f" + std::to_string(Q[i]) + ".txt";
 			f[Q[i]].StartWrite(name);
 		}
 		printall();
-		for (int i = 0; i < 2 + cnt; i++)
+		for (int i = 0; i < cnt; i++)
 		{
 			name = "f" + std::to_string(Q[i]) + ".txt";
 			f[Q[i]].StartRead(name);
 		}
 
-		ord = 2 + cnt;
+		ord = cnt;
 
-		if (cnt1 && (f[Q[0]].eof || f[Q[1]].eof || f[Q[2]].eof))
+		for (int i = 0; i < cnt;)
 		{
-			if (f[Q[0]].eof)
-				std::swap(Q[0], Q[2]);
-			else if (f[Q[1]].eof)
-				std::swap(Q[1], Q[2]);
-			cnt1 = false;
+			if (f[Q[i]].eof)
+			{
+				std::swap(Q[i], Q[cnt - 1]);
+				cnt--;
+			}
+			else
+				i++;
 		}
 
-		while (!f[Q[0]].eof && !f[Q[1]].eof && (!cnt1 || !f[Q[2]].eof))
+		while (cnt > 0)
 		{
-			Min = min(f[Q[0]].elem.num, f[Q[1]].elem.num);
-			if (cnt1)
-				Min = min(Min, f[Q[2]].elem.num);
-			//std::cout << "---\n" << Min << " " << f[Q[ord]].elem.num << "\n---\n";
+
+
+			Min = f[Q[0]].elem.num;
+			for (int i = 0; i < cnt; i++)
+				Min = min(f[Q[i]].elem.num, Min);
 			cont = ((Min > f[Q[ord]].elem.num) && ('a' <= f[Q[ord]].elem.ch && f[Q[ord]].elem.ch <= 'z'));
 
-			if (cnt1)
+
+			cnt1 = cnt;
+
+			for (int i = 0; i < cnt1;)
 			{
-				while (!f[Q[0]].eor && !f[Q[1]].eor && !f[Q[2]].eor)
+				if (f[Q[i]].eor)
 				{
-					if (f[Q[0]].elem.num <= f[Q[1]].elem.num && (!cnt || f[Q[0]].elem.num <= f[Q[2]].elem.num))
-						f[Q[ord]].Copy(f[Q[0]]);
-					else if (f[Q[1]].elem.num < f[Q[0]].elem.num && (!cnt || f[Q[1]].elem.num <= f[Q[2]].elem.num))
-						f[Q[ord]].Copy(f[Q[1]]);
-					else if (cnt)
-						f[Q[ord]].Copy(f[Q[2]]);
-					lcf = Q[ord];
+					std::swap(Q[i], Q[cnt1 - 1]);
+					cnt1--;
 				}
-
-				if (f[Q[0]].eor)
-					std::swap(Q[0], Q[2]);
-				if (f[Q[1]].eor)
-					std::swap(Q[1], Q[2]);
-			}
-
-			while (!f[Q[0]].eor && !f[Q[1]].eor)
-			{
-				if (f[Q[0]].elem.num < f[Q[1]].elem.num)
-					f[Q[ord]].Copy(f[Q[0]]);
 				else
-					f[Q[ord]].Copy(f[Q[1]]);
-				lcf = Q[ord];
+					i++;
 			}
 
-			if (f[Q[0]].eor)
-				std::swap(Q[0], Q[1]);
-			if (!f[Q[0]].eor)
-				lcf = Q[ord];
-			f[Q[ord]].CopyRun(f[Q[0]]);
-
-			if (cnt1 && (f[Q[0]].eof || f[Q[1]].eof || f[Q[2]].eof))
+			while (cnt1 > 0)
 			{
-				if (f[Q[0]].eof)
-					std::swap(Q[0], Q[2]);
-				else if (f[Q[1]].eof)
-					std::swap(Q[1], Q[2]);
-				cnt1 = false;
+				minIn = 0;
+				for (int i = 0; i < cnt1; i++)
+					if (f[Q[minIn]].elem.num > f[Q[i]].elem.num)
+						minIn = i;
+
+				f[Q[ord]].Copy(f[Q[minIn]]);
+				lcf = Q[ord];
+
+				for (int i = 0; i < cnt1;)
+				{
+					if (f[Q[i]].eor)
+					{
+						std::swap(Q[i], Q[cnt1 - 1]);
+						cnt1--;
+					}
+					else
+						i++;
+				}
 			}
 
-			f[Q[0]].eor = f[Q[0]].eof;
-			f[Q[1]].eor = f[Q[1]].eof;
-			if (cnt1)
-				f[Q[2]].eor = f[Q[2]].eof;
+			for (int i = 0; i < cnt;)
+			{
+				if (f[Q[i]].eof)
+				{
+					std::swap(Q[i], Q[cnt - 1]);
+					cnt--;
+				}
+				else
+					i++;
+			}
+
+			for (int i = 0; i < cnt; i++)
+				f[Q[i]].eor = f[Q[i]].eof;
 			count++;
 			if (!cont)
-				ord = max(2 + cnt, (ord + 1) % 5);
-		}
-
-		if (f[Q[0]].eof)
-			std::swap(Q[0], Q[1]);
-
-		while (!f[Q[0]].eof)
-		{
-			f[Q[ord]].CopyRun(f[Q[0]]);
-			lcf = Q[ord];
-			ord = max(2 + cnt, (ord + 1) % 5);
-			count++;
+				ord = max(N / 2 + step, (ord + 1) % N);
 		}
 
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < N; i++)
 			f[i].Close();
+		step = !step;
+		cnt = N / 2 + step;
 
-		cnt = !cnt;
-		cnt1 = cnt;
-		std::swap(Q[0], Q[4]);
-		std::swap(Q[1], Q[3]);
+		for (int i = 0; i < N / 2; i++)
+			std::swap(Q[i], Q[N - i - 1]);
 	} while (count > 1);
 	Out(filename, f, lcf);
 	char file[] = "f0.txt";
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < N; i++)
 	{
 		file[1] = char(i + '0');
 		remove(file);
@@ -263,7 +258,7 @@ bool  CheckFile(std::string filename)
 
 int main()
 {
-	Create_File("data.txt", 150);
+	Create_File("data.txt", 100);
 
 	print("data.txt");
 	std::cout << "\n";
