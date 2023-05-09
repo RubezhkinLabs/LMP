@@ -41,9 +41,9 @@ void In(std::string filename, Sequence f[N])
 	{
 		do
 		{
-			flag = f[i].elem.num < f0.elem.num && ('a' <= f[i].elem.ch && f[i].elem.ch <= 'z');
+			flag = f[i].elem.num < f0.elem.num && ('a' <= f[i].elem.ch && f[i].elem.ch < 'z');
 			f[i].CopyRun(f0);
-		} while (flag);
+		} while (flag && !f0.eof);
 		i = (i + 1) % (N / 2);
 	}
 	f0.Close();
@@ -72,14 +72,11 @@ void print(std::string str)
 	Sequence file;
 	file.StartRead(str);
 	Elem el;
-	int i = 1;
-	std::cout << i << ")";
 	while (!file.eof)
 	{
 		el = file.elem;
-		std::cout << el.num << ' ' << el.ch << " ";
+		std::cout << el.num << ' ';
 		file.ReadNext();
-		if (file.elem.num < el.num) std::cout << "| " << ++i << ") ";
 	}
 	file.Close();
 	std::cout << "\n";
@@ -123,7 +120,7 @@ void Sorting(std::string filename)
 			name = "f" + std::to_string(Q[i]) + ".txt";
 			f[Q[i]].StartWrite(name);
 		}
-		printall();
+		//printall();
 		for (int i = 0; i < cnt; i++)
 		{
 			name = "f" + std::to_string(Q[i]) + ".txt";
@@ -145,28 +142,14 @@ void Sorting(std::string filename)
 
 		while (cnt > 0)
 		{
-
-
 			Min = f[Q[0]].elem.num;
 			for (int i = 0; i < cnt; i++)
 				Min = min(f[Q[i]].elem.num, Min);
 			cont = ((Min > f[Q[ord]].elem.num) && ('a' <= f[Q[ord]].elem.ch && f[Q[ord]].elem.ch <= 'z'));
 
-
 			cnt1 = cnt;
 
-			for (int i = 0; i < cnt1;)
-			{
-				if (f[Q[i]].eor)
-				{
-					std::swap(Q[i], Q[cnt1 - 1]);
-					cnt1--;
-				}
-				else
-					i++;
-			}
-
-			while (cnt1 > 0)
+			while (cnt1 > 1)
 			{
 				minIn = 0;
 				for (int i = 0; i < cnt1; i++)
@@ -176,17 +159,14 @@ void Sorting(std::string filename)
 				f[Q[ord]].Copy(f[Q[minIn]]);
 				lcf = Q[ord];
 
-				for (int i = 0; i < cnt1;)
+				if (f[Q[minIn]].eor)
 				{
-					if (f[Q[i]].eor)
-					{
-						std::swap(Q[i], Q[cnt1 - 1]);
-						cnt1--;
-					}
-					else
-						i++;
+					std::swap(Q[minIn], Q[cnt1-1]);
+					cnt1--;
 				}
 			}
+
+			f[Q[ord]].CopyRun(f[Q[0]]);
 
 			for (int i = 0; i < cnt;)
 			{
@@ -200,7 +180,7 @@ void Sorting(std::string filename)
 			}
 
 			for (int i = 0; i < cnt; i++)
-				f[Q[i]].eor = f[Q[i]].eof;
+				f[Q[i]].eor = 0;
 			count++;
 			if (!cont)
 				ord = max(N / 2 + step, (ord + 1) % N);
@@ -216,10 +196,10 @@ void Sorting(std::string filename)
 			std::swap(Q[i], Q[N - i - 1]);
 	} while (count > 1);
 	Out(filename, f, lcf);
-	char file[] = "f0.txt";
 	for (int i = 0; i < N; i++)
 	{
-		file[1] = char(i + '0');
+		name = "f" + std::to_string(i) + ".txt";
+		const char* file = name.c_str();
 		remove(file);
 	}
 
@@ -258,7 +238,7 @@ bool  CheckFile(std::string filename)
 
 int main()
 {
-	Create_File("data.txt", 100);
+	Create_File("data.txt", 1000);
 
 	print("data.txt");
 	std::cout << "\n";
@@ -306,7 +286,7 @@ void Sequence::Close()
 void Sequence::Copy(Sequence& x)
 {
 	elem = x.elem;
-	file.write((char*)&x.elem, sizeof(x.elem));
+	file.write((char*)&elem, sizeof(elem));
 	x.ReadNext();
 	x.eor = x.eof || (x.elem.num < elem.num);
 }
