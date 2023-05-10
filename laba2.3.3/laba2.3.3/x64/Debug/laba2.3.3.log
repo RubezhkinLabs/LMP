@@ -1,0 +1,37 @@
+﻿  Source.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\type_traits(1572,98): warning C4244: аргумент: преобразование "unsigned __int64" в "int", возможна потеря данных
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\future(1468,48): message : выполняется компиляция ссылки на экземпляр шаблон функции "Max_Elem std::invoke<Max_Elem(__cdecl *)(int **,int,int),int**,unsigned __int64,unsigned __int64>(_Callable &&,_Ty1 &&,unsigned __int64 &&,unsigned __int64 &&) noexcept(false)"
+          with
+          [
+              _Callable=Max_Elem (__cdecl *)(int **,int,int),
+              _Ty1=int **
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\future(1474,94): message : выполняется компиляция ссылки на экземпляр шаблон функции "Max_Elem std::_Invoke_stored_explicit<Max_Elem(__cdecl *)(int **,int,int),int**,unsigned __int64,unsigned __int64,0,1,2,3>(std::tuple<Max_Elem (__cdecl *)(int **,int,int),int **,unsigned __int64,unsigned __int64> &&,std::integer_sequence<size_t,0,1,2,3>)"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\future(1501,1): message : выполняется компиляция ссылки на экземпляр шаблон функции "Max_Elem std::_Invoke_stored<Max_Elem(__cdecl *)(int **,int,int),int**,unsigned __int64,unsigned __int64>(std::tuple<Max_Elem (__cdecl *)(int **,int,int),int **,unsigned __int64,unsigned __int64> &&)"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\future(1501,1): message : во время компиляции функции-члена класс шаблон "Max_Elem std::_Fake_no_copy_callable_adapter<Max_Elem (__cdecl &)(int **,int,int),int **&,_Ty,_Ty>::operator ()(void)"
+          with
+          [
+              _Ty=size_t
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\type_traits(1562,5): message : выполняется компиляция ссылки на экземпляр шаблон функции "Max_Elem std::_Fake_no_copy_callable_adapter<Max_Elem (__cdecl &)(int **,int,int),int **&,_Ty,_Ty>::operator ()(void)"
+          with
+          [
+              _Ty=size_t
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\future(1523,58): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "std::_Fake_no_copy_callable_adapter<Max_Elem (__cdecl &)(int **,int,int),int **&,_Ty,_Ty>"
+          with
+          [
+              _Ty=size_t
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\future(1536,42): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::future<Max_Elem> std::async<Max_Elem(__cdecl &)(int **,int,int),int**&,_Ty,_Ty>(std::launch,_Fty,int **&,_Ty &&,_Ty &&)"
+          with
+          [
+              _Ty=size_t,
+              _Fty=Max_Elem (__cdecl &)(int **,int,int)
+          ]
+D:\учеба\ЯМП\laba2.3.3\laba2.3.3\Source.cpp(40,49): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::future<Max_Elem> std::async<Max_Elem(__cdecl &)(int **,int,int),int**&,size_t,unsigned __int64>(_Fty,int **&,size_t &&,unsigned __int64 &&)"
+          with
+          [
+              _Fty=Max_Elem (__cdecl &)(int **,int,int)
+          ]
+  laba2.3.3.vcxproj -> D:\учеба\ЯМП\laba2.3.3\x64\Debug\laba2.3.3.exe
