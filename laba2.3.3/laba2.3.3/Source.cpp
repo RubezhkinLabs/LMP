@@ -37,7 +37,7 @@ Max_Elem count_max_p(int** a)
 	for (size_t i = 0; i < NTHREAD; i++)
 	{
 		if (i == NTHREAD - 1)
-			TH[i] = std::async(count_max, a, i * n, N * N);
+			TH[i] = std::async(std::launch::async, count_max, a, i * n, N * N);
 		else
 			TH[i] = std::async(count_max, a, i * n, (i + 1) * n);
 	}
