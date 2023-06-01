@@ -1,0 +1,22 @@
+﻿  Source.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\type_traits(1572,98): warning C4244: аргумент: преобразование "unsigned __int64" в "int", возможна потеря данных
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\thread(51,5): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::invoke<void(__cdecl *)(int **,int,int,volatile long &,volatile long &),int**,unsigned __int64,unsigned __int64,std::reference_wrapper<long>,std::reference_wrapper<long>>(_Callable &&,_Ty1 &&,unsigned __int64 &&,unsigned __int64 &&,std::reference_wrapper<long> &&,std::reference_wrapper<long> &&) noexcept(false)"
+          with
+          [
+              _Callable=void (__cdecl *)(int **,int,int,volatile long &,volatile long &),
+              _Ty1=int **
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\thread(61,5): message : выполняется компиляция ссылки на экземпляр шаблон функции "unsigned int std::thread::_Invoke<_Tuple,0,1,2,3,4,5>(void *) noexcept"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\thread(66,13): message : выполняется компиляция ссылки на экземпляр шаблон функции "unsigned int (__cdecl *std::thread::_Get_invoke<_Tuple,0,1,2,3,4,5>(std::integer_sequence<size_t,0,1,2,3,4,5>) noexcept)(void *)"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\thread(89,5): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::thread::_Start<void(__cdecl &)(int **,int,int,volatile long &,volatile long &),int**&,_Ty,_Ty,std::reference_wrapper<long>,std::reference_wrapper<long>>(_Fn,int **&,_Ty &&,_Ty &&,std::reference_wrapper<long> &&,std::reference_wrapper<long> &&)"
+          with
+          [
+              _Ty=size_t,
+              _Fn=void (__cdecl &)(int **,int,int,volatile long &,volatile long &)
+          ]
+D:\учеба\ЯМП\laba2.4\Project19\Source.cpp(68,90): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::thread::thread<void(__cdecl &)(int **,int,int,volatile long &,volatile long &),int**&,size_t,unsigned __int64,std::reference_wrapper<long>,std::reference_wrapper<long>,0>(_Fn,int **&,size_t &&,unsigned __int64 &&,std::reference_wrapper<long> &&,std::reference_wrapper<long> &&)"
+          with
+          [
+              _Fn=void (__cdecl &)(int **,int,int,volatile long &,volatile long &)
+          ]
+  Project19.vcxproj -> D:\учеба\ЯМП\laba2.4\x64\Debug\Project19.exe
